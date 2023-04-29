@@ -1,20 +1,20 @@
 ###---TO BEGIN---################################################################################
-# Philip Wallis 																				#
+# Philip Wallis 										#
 # This project was completed solely by P. Wallis with online resources, no copy/pasted code.	#
-# To run the program, open this file in MARS 4.5 by Missouri State University.					#
-# Assemble the file by pressing F3, then run the program by pressing F5.						#
-# To play the game, type a number between 0-8 and hit enter when prompted to make a move.		#
-# To replay the game, reassemble and run the program again.										#
+# To run the program, open this file in MARS 4.5 by Missouri State University.			#
+# Assemble the file by pressing F3, then run the program by pressing F5.			#
+# To play the game, type a number between 0-8 and hit enter when prompted to make a move.	#
+# To replay the game, reassemble and run the program again.					#
 #################################################################################################
 
 
 ###---DATA---####################################################################################################################################
-# The data segment holds the initial values of the board which is modified by the player or the computer move procedure.						#
-# The board is also used to check to see if there is a winner in the game.																		#
-# instruction1 and instruction2 is called in the beginning of the play procedure to display the instructions.									#
-# space, bar, and divider is used to display the board in draw_board procedure.																	#
-# input, invalid, computerMove is used to show the player what to do or show what happened, and 'X' and 'O' are used to replace the move.		#
-# winText, loseText, tieText is used to display who won, after determining the winner of the game.												#
+# The data segment holds the initial values of the board which is modified by the player or the computer move procedure.			#
+# The board is also used to check to see if there is a winner in the game.									#
+# instruction1 and instruction2 is called in the beginning of the play procedure to display the instructions.					#
+# space, bar, and divider is used to display the board in draw_board procedure.									#
+# input, invalid, computerMove is used to show the player what to do or show what happened, and 'X' and 'O' are used to replace the move.	#
+# winText, loseText, tieText is used to display who won, after determining the winner of the game.						#
 #################################################################################################################################################
 .data					#data segment
 
@@ -43,9 +43,9 @@
 .globl	main				# declare main to be global
 
 ###---MAIN---############################################################################################################
-# This main procedure is the one that initializes everything. 															#
-# It initializes $s0 = board, $t1 = 'X' and $t2 = 'O' and $t7 = 4 to represent individual element size in board.		#
-# It calls play procedure which is the actual game, then exits in case of an error.										#
+# This main procedure is the one that initializes everything. 								#
+# It initializes $s0 = board, $t1 = 'X' and $t2 = 'O' and $t7 = 4 to represent individual element size in board.	#
+# It calls play procedure which is the actual game, then exits in case of an error.					#
 #########################################################################################################################
 main:
 	
@@ -61,10 +61,10 @@ main:
 	j exit				# in case of error
 
 ###---PLAY---####################################################################################################
-# The play function starts by printing the instructions to the user.											#
-# It plays 4 set of move, and each set contains draw_board, a player_move, then a computer_move.				#
-# Then another player_move is called in case the game hasn't ended by then to place the 9th move.				#
-# If no winner is determined by the end of the 9th move, it calls the tied procedure and ends the program.		#
+# The play function starts by printing the instructions to the user.						#
+# It plays 4 set of move, and each set contains draw_board, a player_move, then a computer_move.		#
+# Then another player_move is called in case the game hasn't ended by then to place the 9th move.		#
+# If no winner is determined by the end of the 9th move, it calls the tied procedure and ends the program.	#
 #################################################################################################################
 play:
 	# Print instructions
@@ -103,7 +103,7 @@ play:
 	 	 
 	jal exit
 ###---PLAYER_MOVE---#############################################################################
-# It calls the player_place, then calls check_winner to determine the winner.					#
+# It calls the player_place, then calls check_winner to determine the winner.			#
 # If there is no winner after calling, it will return to play procedure to continue the game.	#
 #################################################################################################
 player_move:
@@ -118,9 +118,9 @@ player_move:
 	add $sp, $sp, 4	
 	jr $ra
 ###---PLAYER_PLACE---############################################################################################################################
-# It prompts the user to enter a number. Then it reads the user input and saves the input number to $t0.										#
-# Then it is multiplied by $t7, or 4, to determine the place on the board, and calls invalid_move to check for invalid input.					#
-# If the invalid move has no errors, it returns to the procedure to replace the place on board with an 'X', then returns to player_move.		#
+# It prompts the user to enter a number. Then it reads the user input and saves the input number to $t0.					#
+# Then it is multiplied by $t7, or 4, to determine the place on the board, and calls invalid_move to check for invalid input.			#
+# If the invalid move has no errors, it returns to the procedure to replace the place on board with an 'X', then returns to player_move.	#
 #################################################################################################################################################
 player_place:
 	sub $sp, $sp, 4
@@ -156,10 +156,10 @@ player_place:
 
 ###---INVALID_MOVE && PRINT_INVALID---###################################################
 # It will get the player input location, and check if it is occupied by an 'X' or 'O'.	#
-# If it is occupied, it will call print_invalid procedure.								#
-# In the invalid procedure, it will display that it is invalid and call draw_board.		#
+# If it is occupied, it will call print_invalid procedure.				#
+# In the invalid procedure, it will display that it is invalid and call draw_board.	#
 # It calls player_place again if it reaches here, and will re-prompt everything again.	#
-# If it executes without invalid moves, it will return back to player_move.				#
+# If it executes without invalid moves, it will return back to player_move.		#
 #########################################################################################
 invalid_move:
 	sub $sp, $sp, 4
@@ -190,9 +190,9 @@ print_invalid:
 	
 ###---COMPUTER_MOVE && COMPUTER_PLACE && COMPUTER PLACED---##############################################
 # Similar to player_move, but this calls a computer_placed to display that computer has made its move.	#
-# computer_place also acts similar to player_place, but instead of getting an input from the user,		#
-# it will generate a random number between 0-8 and call the invalid_computer to verify the input.		#
-# If the generated move is valid, it will place an 'O'on the board.										#
+# computer_place also acts similar to player_place, but instead of getting an input from the user,	#
+# it will generate a random number between 0-8 and call the invalid_computer to verify the input.	#
+# If the generated move is valid, it will place an 'O'on the board.					#
 #########################################################################################################
 computer_move:
 	sub $sp, $sp, 4
@@ -248,8 +248,8 @@ computer_placed:
 	jr $ra
 	
 ###---INVALID_COMPUTER && COMPUTER_RETRY---######################################################################
-# invalid_computer acts like invalid_move and compares the computer move to any existing board elements.		#
-# computer_retry is also just like print_invalid, it calls the computer_place function again to repeat.			#
+# invalid_computer acts like invalid_move and compares the computer move to any existing board elements.	#
+# computer_retry is also just like print_invalid, it calls the computer_place function again to repeat.		#
 #################################################################################################################
 invalid_computer:
 	sub $sp, $sp, 4
@@ -274,12 +274,12 @@ computer_retry:
 	jr $ra
 	
 ###---CHECK_WINNER && CHECK_$$$---###############################################################################
-# check_winner calls check_$$1 which is the first two numbers of the list of three.								#
-# the first $ represents: r = row, c = column, d = diagonal.													#
-# The second $ represents 1 = first, 2 = second, 3 = third, options for the specific direction of winning.		#
+# check_winner calls check_$$1 which is the first two numbers of the list of three.				#
+# the first $ represents: r = row, c = column, d = diagonal.							#
+# The second $ represents 1 = first, 2 = second, 3 = third, options for the specific direction of winning.	#
 # In check_$$1, it will compare the first two numbers of the winning three then if those two match in value,	#
-# it will call check_$$2, which will compare the second and third values. 										#
-# If the check_$$2 beq gives a true output, then it will go to WINNER_FOUND.									#
+# it will call check_$$2, which will compare the second and third values. 					#
+# If the check_$$2 beq gives a true output, then it will go to WINNER_FOUND.					#
 # If there is no match at any point, it will skip the next step, and go check the next set of winning three.	#
 #################################################################################################################
 check_winner:
@@ -490,8 +490,8 @@ check_d22:
 ###---WINNER_FOUND && PLAYER_WIN && COMPUTER_WIN && TIED---######################################
 # winner_found will compare $t5 which holds 'O' or 'X' which was successfully made in a row.	#
 # $t5 is compared with $t2, or 'O', to call computer_win, or $t1, or 'X', to call player_win.	#
-# The other three functions call their respective text.											#
-# It will then call draw_board to display the final board and exit.   							#
+# The other three functions call their respective text.						#
+# It will then call draw_board to display the final board and exit.   				#
 #################################################################################################
 winner_found:
 
@@ -527,11 +527,11 @@ tied:
 
 ###---DRAW_BOARD---##############################################################################
 # This procedure will print $s0, or board, in a format that is visually pleasing to the player.	#
-# for example:	 0 | 1 | 2		 O | 1 | X														#
-# 		---+---+---		---+---+---																#
-# 		 3 | 4 | 5	  or	 3 | X | O															#
-# 		---+---+---		---+---+---																#
-# 		 6 | 7 | 8		 X | 7 | 8																#
+# for example:	 0 | 1 | 2		 O | 1 | X						#
+# 		---+---+---		---+---+---						#
+# 		 3 | 4 | 5	  or	 3 | X | O						#
+# 		---+---+---		---+---+---						#
+# 		 6 | 7 | 8		 X | 7 | 8						#
 # If it is called, it will print each element inside the board, whether its 0-8 or 'X' or 'O'	#
 #################################################################################################
 draw_board:
@@ -628,7 +628,7 @@ draw_board:
 	jr $ra
 
 ####---EXIT---###################################
-# This procedure is used to end the game.		#
+# This procedure is used to end the game.	#
 #################################################
 exit:
 	li $v0, 10
